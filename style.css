@@ -99,3 +99,13 @@ border-radius: 65px;
     text-shadow: #000000;
     font-weight: bolder;
 }
+
+#sound:hover{
+    transform: scale(0.95);
+}
+#frands:hover{
+    transform: scale(0.95);
+}
+#now:hover{
+    transform: scale(0.95);
+}
