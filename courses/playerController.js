@@ -3,7 +3,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const img = new Image();
-img.src = "/Assets/ball_white.png";
+img.src = "../Assets/ball_white.png";
 
 // Set the ball properties
 const ball = {
