@@ -45,7 +45,7 @@ const wall5 ={
   x2: 1950,
   y1: 915,
   y2: 750,
-  thickness: 10,
+  thickness: 40,
 }
 
 const wall6 ={
@@ -53,7 +53,7 @@ const wall6 ={
   x2: 1650,
   y1: 800,
   y2: 360,
-  thickness: 10,
+  thickness: 40,
 }
 
 function drawCourse() {
@@ -161,24 +161,26 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
     var otherright = otherobj.x + (otherobj.width);
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
-    var crash = true;
+    var crash = 1;
     if ((myleft>otherright) || (mytop>otherbottom) || (mybottom<othertop) || (myright<otherleft)) {
-      crash = false;
+      crash = 0;
     }
+    if(crash) return crash2(otherobj);
     return crash;
   }
 
-  /*function crash2(otherobj) {
+  function crash2(otherobj) {
     var myleft = ball.x;
     var myright = ball.x + (ball.width);
     var otherleft = otherobj.x;
     var otherright = otherobj.x + (otherobj.width);
-    var crash = true;
-    if((myleft>otherright) || myright<otherleft){
-      crash = false;
+    var crash = 1;
+    var speedx=ball.dx;
+    if((myleft>otherright+10*speedx) || myright<otherleft+10*speedx){
+      crash = 2;
     }
-    return crash
-  }*/
+    return crash;
+  }
   function crash3(wall) {
     // Calculate the line segment vector
     const wallVector = {
@@ -254,21 +256,32 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
       }
       
 
-      if(crash1(wall1)){
+      if(crash1(wall1)==1){
         ball.dy *= -1;
       }
-      
-
-      if(crash1(wall2)){
-        ball.dy *= -1;
+      if(crash1(wall1)==2){
+        ball.dx *= -1;
       }
 
-      if(crash1(wall3)){
+      if(crash1(wall2)==1){
         ball.dy *= -1;
       }
+      if(crash1(wall2)==2){
+        ball.dx *= -1;
+      }
 
-      if(crash1(wall4)){
+      if(crash1(wall3)==1){
         ball.dy *= -1;
+      }
+      if(crash1(wall3)==2){
+        ball.dx *= -1;
+      }
+
+      if(crash1(wall4)==1){
+        ball.dy *= -1;
+      }
+      if(crash1(wall4)==2){
+        ball.dx *= -1;
       }
 
 
