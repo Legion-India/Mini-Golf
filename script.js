@@ -4,7 +4,7 @@ const frands = document.getElementById("frands");
 
 now.addEventListener('click' , e =>{
     e.preventDefault();
-    window.location.href = '/courses/course1.html'
+    window.location.href = 'courses/course1.html'
 })
 
 frands.addEventListener('click', e=>{
