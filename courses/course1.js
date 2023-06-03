@@ -59,13 +59,13 @@ const wall6 ={
 
 function drawCourse() {
     ctx.drawImage(course1, course.x, course.y, course.width, course.height);
-    ctx.strokeStyle = 'black';
+    /*ctx.strokeStyle = 'black';
     ctx.strokeRect(wall1.x,wall1.y,wall1.width,wall1.height);
     ctx.strokeRect(wall2.x,wall2.y,wall2.width,wall2.height);
     ctx.strokeRect(wall3.x,wall3.y,wall3.width,wall3.height);
     ctx.strokeRect(wall4.x,wall4.y,wall4.width,wall4.height);
     ctx.fillStyle = "#000000"; // Adjust the wall color as needed
-    ctx.fillRect(wall6.x1, wall6.y2, wall6.x2 - wall6.x1, wall6.thickness);
+    ctx.fillRect(wall6.x1, wall6.y2, wall6.x2 - wall6.x1, wall6.thickness);*/
 
   }
 
@@ -112,9 +112,9 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
     ctx.arc(ball.x + ball.width/2,ball.y  + ball.height/2,ball.height/2,0,Math.PI *2);
     ctx.stroke();
     ctx.drawImage(ballImg, ball.x, ball.y);
-    ctx.beginPath();
+   /* ctx.beginPath();
     ctx.arc(hole.x + hole.width/2,hole.y  + hole.height/2,hole.height/2,0,Math.PI *2);
-    ctx.stroke();
+    ctx.stroke();*/
   }
   
   // Event listeners for mouse events
@@ -259,6 +259,10 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
       /*if(crash3(wall5)){
         update_crash3(wall5);
       }*/
+
+      if(crash1(hole)){
+        window.alert("YOU WON!!")
+      }
 
       if (Math.abs(ball.dx) < 0.1 && Math.abs(ball.dy) < 0.1) {
         // Ball has stopped moving
