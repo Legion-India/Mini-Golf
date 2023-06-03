@@ -201,7 +201,7 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
     var cos2theta=2/(1+tantheta*tantheta)-1;
     var sin2theta=2*tantheta/(1+tantheta*tantheta);
     var x=ball.dx;
-    var y=ball.dx;
+    var y=ball.dy;
     ball.dx=x*cos2theta-y*sin2theta;
     ball.dy=x*sin2theta+y*cos2theta;
   }
@@ -256,12 +256,12 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
       if(crash1(wall4)==2){
         ball.dx *= -1;
       }
-      /*if(crash3(wall5)){
+      if(crash3(wall5)){
         update_crash3(wall5);
-      }*/
+      }
 
       if(crash1(hole)){
-        window.alert("YOU WON!!")
+        window.location.href = 'course2.html';
       }
 
       if (Math.abs(ball.dx) < 0.1 && Math.abs(ball.dy) < 0.1) {
