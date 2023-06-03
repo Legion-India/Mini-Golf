@@ -100,6 +100,36 @@ const ball = {
     ctx.drawImage(ballImg, ball.x, ball.y);
   }
 
+  function crash1(otherobj) {
+    var myleft = ball.x;
+    var myright = ball.x + (ball.width);
+    var mytop = ball.y;
+    var mybottom = ball.y + (ball.height);
+    var otherleft = otherobj.x;
+    var otherright = otherobj.x + (otherobj.width);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+    var crash = 1;
+    if ((myleft>otherright) || (mytop>otherbottom) || (mybottom<othertop) || (myright<otherleft)) {
+      crash = 0;
+    }
+    if(crash) return crash2(otherobj);
+    return crash;
+  }
+
+  function crash2(otherobj) {
+    var myleft = ball.x;
+    var myright = ball.x + (ball.width);
+    var otherleft = otherobj.x;
+    var otherright = otherobj.x + (otherobj.width);
+    var crash = 1;
+    var speedx=ball.dx;
+    if((myleft>otherright+10*speedx) || myright<otherleft+10*speedx){
+      crash = 2;
+    }
+    return crash;
+  }
+
 function update(){
 
     if (ball.isMoving) {
@@ -116,6 +146,27 @@ function update(){
           }
     
           if(ball.x>1880 || ball.x<59){
+            ball.dx *= -1;
+          }
+
+          if(crash1(wall1)==1){
+            ball.dy *= -1;
+          }
+          if(crash1(wall1)==2){
+            ball.dx *= -1;
+          }
+    
+          if(crash1(wall2)==1){
+            ball.dy *= -1;
+          }
+          if(crash1(wall2)==2){
+            ball.dx *= -1;
+          }
+    
+          if(crash1(wall3)==1){
+            ball.dy *= -1;
+          }
+          if(crash1(wall3)==2){
             ball.dx *= -1;
           }
 
