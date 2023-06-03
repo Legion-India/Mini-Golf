@@ -130,6 +130,11 @@ const ball = {
     return crash;
   }
 
+  function crash3(wall){
+    if(areatri(ball.x,ball.y,wall.x1,wall.y1,wall.x3,wall.y3)+areatri(ball.x,ball.y,wall.x2,wall.y2,wall.x3,wall.y3)<areatri(wall.x1,wall.y1,wall.x2,wall.y2,wall.x3,wall.y3)) return true;
+    return false;
+  }
+
 function update(){
 
     if (ball.isMoving) {
@@ -169,6 +174,10 @@ function update(){
           if(crash1(wall3)==2){
             ball.dx *= -1;
           }
+
+          //if(crash3(sand)){
+          //  ball.friction=0.95;
+          //}
 
         if (Math.abs(ball.dx) < 0.1 && Math.abs(ball.dy) < 0.1) {
             // Ball has stopped moving

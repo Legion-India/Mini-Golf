@@ -45,7 +45,8 @@ const wall5 ={
   x2: 1950,
   y1: 915,
   y2: 750,
-  thickness: 40,
+  x3: 1950,
+  y3: 915,
 }
 
 const wall6 ={
@@ -152,6 +153,10 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
     }
   }
 
+  function areatri(x1,y1,x2,y2,x3,y3){
+    return Math.abs((x1*(y2-y3)+x2*(y3-y1)+x3*(y1-y2))/2);
+  }
+
   function crash1(otherobj) {
     var myleft = ball.x;
     var myright = ball.x + (ball.width);
@@ -181,56 +186,24 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
     }
     return crash;
   }
-  function crash3(wall) {
-    // Calculate the line segment vector
-    const wallVector = {
-      x: wall.x1 - wall.x2,
-      y: wall.y1 - wall.y2,
-    };
-  
-    // Calculate the vector between the ball's center and one end of the wall
-    const ballToWallVector = {
-      x: ball.x - wall.x2,
-      y: ball.y - wall.y2,
-    };
-  
-    // Calculate the dot product of the line segment vector and the ball-to-wall vector
-    const dotProduct = (ballToWallVector.x * wallVector.x) + (ballToWallVector.y * wallVector.y);
-  
-    // Calculate the square of the magnitude of the line segment vector
-    const wallVectorMagnitudeSquared = (wallVector.x * wallVector.x) + (wallVector.y * wallVector.y);
-  
-    // Calculate the projection factor (dot product divided by magnitude squared)
-    const projectionFactor = dotProduct / wallVectorMagnitudeSquared;
-  
-    // Calculate the closest point on the line segment to the ball's center
-    const closestPoint = {
-      x: wall.x2 + (wallVector.x * projectionFactor),
-      y: wall.y2 + (wallVector.y * projectionFactor),
-    };
-  
-    // Calculate the vector from the ball's center to the closest point
-    const ballToClosestPointVector = {
-      x: closestPoint.x - ball.x,
-      y: closestPoint.y - ball.y,
-    };
-  
-    // Calculate the distance between the ball's center and the closest point
-    const distance = Math.sqrt((ballToClosestPointVector.x * ballToClosestPointVector.x) +
-                               (ballToClosestPointVector.y * ballToClosestPointVector.y));
-  
-    // Check if the distance is less than or equal to the ball's radius (collision occurred)
-    if (distance <= ball.width/2) {
-      // Calculate the reflection vector
-      const reflectionVector = {
-        x: ballToClosestPointVector.x - (2 * ballToClosestPointVector.x * projectionFactor),
-        y: ballToClosestPointVector.y - (2 * ballToClosestPointVector.y * projectionFactor),
-      };
-  
-      // Update the ball's velocity to the reflection vector
-      ball.dx = reflectionVector.x;
-      ball.dy = reflectionVector.y;
-    }
+
+  function crash3(wall){
+    if(areatri(ball.x,ball.y,wall.x1,wall.y1,wall.x3,wall.y3)+areatri(ball.x,ball.y,wall.x2,wall.y2,wall.x3,wall.y3)<areatri(wall.x1,wall.y1,wall.x2,wall.y2,wall.x3,wall.y3)) return true;
+    return false;
+  }
+
+  function update_crash3(wall) {
+    var wallvector_x=wall.x2-wall.x1;
+    var wallvector_y=wall.y2-wall.y1;
+    var tantheta_wall=wallvector_y/wallvector_x;
+    var tantheta_velocity=ball.dy/ball.dx;
+    var tantheta=(tantheta_wall-tantheta_velocity)/(1+tantheta_wall+tantheta_velocity);
+    var cos2theta=2/(1+tantheta*tantheta)-1;
+    var sin2theta=2*tantheta/(1+tantheta*tantheta);
+    var x=ball.dx;
+    var y=ball.dx;
+    ball.dx=x*cos2theta-y*sin2theta;
+    ball.dy=x*sin2theta+y*cos2theta;
   }
   
   
@@ -283,16 +256,15 @@ ballImg.src = "../Assets/ball_white.png"; // Replace with the path to your ball 
       if(crash1(wall4)==2){
         ball.dx *= -1;
       }
-
+      /*if(crash3(wall5)){
+        update_crash3(wall5);
+      }*/
 
       if (Math.abs(ball.dx) < 0.1 && Math.abs(ball.dy) < 0.1) {
         // Ball has stopped moving
         ball.isMoving = false;
       }
     }
-
-    crash3(wall5);
-    
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawCourse();
