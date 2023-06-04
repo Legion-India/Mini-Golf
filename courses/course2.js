@@ -250,7 +250,7 @@ function update(){
           }
           
           if(crash1(hole)){
-            window.alert("Happy Birthday!!");
+            window.alert("You Won!!");
           }
 
         if (Math.abs(ball.dx) < 0.1 && Math.abs(ball.dy) < 0.1) {
